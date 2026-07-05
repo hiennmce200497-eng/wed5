@@ -1,0 +1,148 @@
+/* ==========================================
+   MỤC 4: GIAO DIỆN DI ĐỘNG (ƯU TIÊN THIẾT BỊ DI ĐỘNG)
+   Sử dụng lưới một cột với khoảng cách 10px
+   ========================================== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #222222;
+    transition: all 0.3s ease;
+}
+
+header, .intro-text {
+    padding: 20px;
+    text-align: center;
+}
+
+.intro-text p {
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 10px auto;
+}
+
+/* Thiết lập lưới 1 cột mặc định cho di động */
+.image-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px; /* Khoảng cách 10px giữa hàng và cột (Mục 4.a) */
+    padding: 10px;
+}
+
+.grid-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.grid-item img {
+    width: 100%;
+    display: block;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.stat-number {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    font-weight: bold;
+    color: #333333;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f1f2f6;
+}
+
+/* ==========================================
+   MỤC 5: CHẾ ĐỘ XEM TRÊN MÁY TÍNH BẢNG (KÍCH HOẠT Ở 772PX)
+   ========================================== */
+@media screen and (min-width: 772px) {
+    .image-grid {
+        grid-template-columns: repeat(2, 1fr); /* a. Sử dụng lưới hai cột */
+    }
+
+    .grid-item img {
+        border-radius: 50%; /* b. Đặt bán kính đường viền tạo hình tròn */
+        aspect-ratio: 1 / 1; /* Đảm bảo ảnh là hình tròn hoàn hảo không méo */
+    }
+
+    /* c. Đặt hình cuối cùng sao cho chiếm cả hai cột */
+    .last-item {
+        grid-column: span 2;
+    }
+    
+    .last-item img {
+        border-radius: 0px; /* Trả lại hoặc tùy biến theo bố cục rộng */
+        aspect-ratio: 21 / 9;
+    }
+}
+
+/* ==========================================
+   MỤC 6: CHẾ ĐỘ XEM MÀN HÌNH LỚN (KÍCH HOẠT Ở 992PX)
+   ========================================== */
+@media screen and (min-width: 992px) {
+    .image-grid {
+        grid-template-columns: repeat(3, 1fr); /* Tạo khung lưới 3 cột nền tảng */
+    }
+
+    /* a. Hãy sắp xếp sao cho cứ mỗi ba hình lại chiếm cả hai cột */
+    .grid-item {
+        grid-column: span 2; 
+    }
+
+    /* b. Hãy loại bỏ bán kính bo tròn khỏi tất cả các hình (KHÔNG dùng max-width) */
+    .grid-item img {
+        border-radius: 0 !important;
+        aspect-ratio: 16 / 9;
+    }
+}
+
+/* ==========================================
+   MỤC 7: TRUY VẤN PHƯƠNG TIỆN prefers-reduced-motion
+   ========================================== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important; /* a. Loại bỏ hành vi cuộn/chuyển động mượt */
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ==========================================
+   MỤC 8: TRUY VẤN PHƯƠNG TIỆN CHO MÀU TỐI (DARK MODE)
+   ========================================== */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+
+    /* a. Hãy đổi màu nền của các hình ảnh thành màu tối (bằng cách giảm độ sáng nhẹ hoặc phủ nền khối) */
+    .grid-item {
+        background-color: #1e1e1e;
+    }
+    .grid-item img {
+        opacity: 0.8; /* Giảm độ sáng ảnh để dịu mắt trong đêm */
+    }
+
+    /* b. Đổi màu chữ của các số liệu sang màu nhạt hơn (vàng nhạt) */
+    .stat-number {
+        background: rgba(30, 30, 30, 0.9);
+        color: #fff9c4; /* Màu vàng nhạt đạt chuẩn tương phản cao (Mục 9) */
+    }
+
+    /* c. Đổi màu viền của các hình thành màu đen */
+    .grid-item img {
+        border: 2px solid #000000;
+    }
+
+    footer {
+        background-color: #1a1a1a;
+    }
+}
